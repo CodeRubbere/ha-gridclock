@@ -52,8 +52,9 @@ data leveren.
 ## Bestanden
 
 - `const.py` — zone-lijst (gespiegeld van `infra/publisher.py`'s `NAMES`),
-  CDN-basis-URL, update-interval (5 min, binnen de CDN-cache van
-  `max-age=300`).
+  CDN-basis-URL, update-interval (elk uur; bij het toevoegen van een
+  biedzone wordt meteen ook al opgehaald, via de testcall in `config_flow.py`
+  en de eerste refresh van de coordinator).
 - `coordinator.py` — haalt en parseert `v1/prices/{zone}/latest.json`.
 - `config_flow.py` — UI-setup (zone-keuze + bearer-sleutel), met een
   live testcall zodat een foute sleutel of onbereikbare CDN meteen zichtbaar is.

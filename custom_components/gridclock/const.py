@@ -25,9 +25,12 @@ API_BASE = "https://cdn.gridclock.eu"
 API_SCHEMA = "v1"
 
 # CDN cache-control on latest.json is "max-age=300, stale-while-revalidate=86400"
-# (infra/publisher.py CACHE_LATEST) - polling every 5 minutes stays inside that
-# window without hammering the CDN.
-UPDATE_INTERVAL = timedelta(minutes=5)
+# (infra/publisher.py CACHE_LATEST). An hourly poll is well outside that window
+# (each fetch gets a cache-refreshed response), chosen to keep load on the CDN
+# low; a fresh fetch also always happens right away when a zone is first set
+# up (config flow validation call + the coordinator's first refresh on
+# entry setup), so a newly added zone never has to wait an hour for data.
+UPDATE_INTERVAL = timedelta(hours=1)
 REQUEST_TIMEOUT = 15
 
 # Price values on the CDN are integers in 0.1 ct/kWh (infra/publisher.py UNIT).

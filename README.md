@@ -11,8 +11,9 @@ A custom [Home Assistant](https://www.home-assistant.io/) integration for
 - Config flow setup: pick your bidding zone from a dropdown, with an
   optional bearer API key field (future-proofing — the CDN does not yet
   require authentication).
-- Polls `v1/prices/{zone}/latest.json` every 5 minutes (within the CDN's
-  `max-age=300` cache window).
+- Polls `v1/prices/{zone}/latest.json` every hour, plus an immediate fetch
+  as soon as a bidding zone is set up (during config flow validation, and
+  again on the coordinator's first refresh).
 - Two sensors per configured zone, grouped under one device (e.g. "Grid
   Clock NL"):
   - **Current price** (`sensor.grid_clock_<zone>_current_price`) — the price
