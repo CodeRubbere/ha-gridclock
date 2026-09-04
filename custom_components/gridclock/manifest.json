@@ -1,7 +1,7 @@
 {
   "domain": "gridclock",
   "name": "Grid Clock",
-  "codeowners": ["@robvanrij"],
+  "codeowners": ["@CodeRubbere"],
   "config_flow": true,
   "documentation": "https://github.com/CodeRubbere/ha-gridclock",
   "issue_tracker": "https://github.com/CodeRubbere/ha-gridclock/issues",
