@@ -29,7 +29,7 @@ A custom [Home Assistant](https://www.home-assistant.io/) integration for
 ### HACS (recommended)
 
 1. In HACS, add this repository as a **custom repository**
-   (category: *Integration*): `https://github.com/robvanrij/ha-gridclock`.
+   (category: *Integration*): `https://github.com/CodeRubbere/ha-gridclock`.
 2. Install "Grid Clock" from HACS.
 3. Restart Home Assistant.
 4. Settings → Devices & Services → Add Integration → search "Grid Clock".
