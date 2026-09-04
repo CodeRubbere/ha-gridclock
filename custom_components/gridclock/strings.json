@@ -1,0 +1,50 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Grid Clock",
+        "description": "Connect to cdn.gridclock.eu for day-ahead electricity prices.",
+        "data": {
+          "zone": "Bidding zone",
+          "api_key": "Bearer API key (optional)"
+        },
+        "data_description": {
+          "api_key": "Sent as an Authorization: Bearer header. Leave empty if you don't have one yet - the public CDN doesn't require it today."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach cdn.gridclock.eu. Check your internet connection and try again.",
+      "invalid_auth": "cdn.gridclock.eu rejected the bearer key.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This zone is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Grid Clock bearer key",
+        "data": {
+          "api_key": "Bearer API key (optional)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach cdn.gridclock.eu. Check your internet connection and try again.",
+      "invalid_auth": "cdn.gridclock.eu rejected the bearer key.",
+      "unknown": "Unexpected error."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "current_price": {
+        "name": "Current price"
+      },
+      "prices": {
+        "name": "Prices"
+      }
+    }
+  }
+}

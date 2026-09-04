@@ -1,0 +1,50 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Grid Clock",
+        "description": "Verbind met cdn.gridclock.eu voor dag-vooruit elektriciteitsprijzen.",
+        "data": {
+          "zone": "Biedzone",
+          "api_key": "Bearer API-sleutel (optioneel)"
+        },
+        "data_description": {
+          "api_key": "Wordt meegestuurd als Authorization: Bearer header. Laat leeg als je er nog geen hebt - de publieke CDN vereist hem vandaag niet."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan cdn.gridclock.eu niet bereiken. Controleer je internetverbinding en probeer opnieuw.",
+      "invalid_auth": "cdn.gridclock.eu wees de bearer-sleutel af.",
+      "unknown": "Onverwachte fout."
+    },
+    "abort": {
+      "already_configured": "Deze zone is al geconfigureerd."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Grid Clock bearer-sleutel",
+        "data": {
+          "api_key": "Bearer API-sleutel (optioneel)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan cdn.gridclock.eu niet bereiken. Controleer je internetverbinding en probeer opnieuw.",
+      "invalid_auth": "cdn.gridclock.eu wees de bearer-sleutel af.",
+      "unknown": "Onverwachte fout."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "current_price": {
+        "name": "Huidige prijs"
+      },
+      "prices": {
+        "name": "Prijzen"
+      }
+    }
+  }
+}

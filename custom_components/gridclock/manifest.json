@@ -1,0 +1,12 @@
+{
+  "domain": "gridclock",
+  "name": "Grid Clock",
+  "codeowners": ["@robvanrij"],
+  "config_flow": true,
+  "documentation": "https://github.com/robvanrij/ha-gridclock",
+  "issue_tracker": "https://github.com/robvanrij/ha-gridclock/issues",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "1.0.0"
+}
