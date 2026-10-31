@@ -20,6 +20,7 @@ PLATFORMS = ["sensor"]
 
 CONF_ZONE = "zone"
 CONF_API_KEY = "api_key"
+CONF_DEFAULT = "is_default"
 
 API_BASE = "https://cdn.gridclock.eu"
 API_SCHEMA = "v1"

@@ -6,10 +6,12 @@
         "description": "Verbind met cdn.gridclock.eu voor dag-vooruit elektriciteitsprijzen.",
         "data": {
           "zone": "Biedzone",
-          "api_key": "Bearer API-sleutel (optioneel)"
+          "api_key": "Bearer API-sleutel (optioneel)",
+          "is_default": "Gebruik als standaardzone"
         },
         "data_description": {
-          "api_key": "Wordt meegestuurd als Authorization: Bearer header. Laat leeg als je er nog geen hebt - de publieke CDN vereist hem vandaag niet."
+          "api_key": "Wordt meegestuurd als Authorization: Bearer header. Laat leeg als je er nog geen hebt - de publieke CDN vereist hem vandaag niet.",
+          "is_default": "De standaardzone voedt ook sensor.grid_clock_default_current_price en sensor.grid_clock_default_prices."
         }
       }
     },
@@ -25,9 +27,14 @@
   "options": {
     "step": {
       "init": {
-        "title": "Grid Clock bearer-sleutel",
+        "title": "Grid Clock-opties",
         "data": {
-          "api_key": "Bearer API-sleutel (optioneel)"
+          "api_key": "Bearer API-sleutel (optioneel)",
+          "is_default": "Gebruik als standaardzone"
+        },
+        "data_description": {
+          "api_key": "Wordt meegestuurd als Authorization: Bearer header. Laat leeg als je er nog geen hebt - de publieke CDN vereist hem vandaag niet.",
+          "is_default": "Er kan maar één standaardzone zijn. Die voedt ook sensor.grid_clock_default_current_price en sensor.grid_clock_default_prices, zodat automatiseringen blijven werken als je wisselt. Wil je een andere standaard, vink dit dan aan bij de zone die je wilt. Zonder keuze is de eerst toegevoegde zone de standaard."
         }
       }
     },

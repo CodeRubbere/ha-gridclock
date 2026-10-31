@@ -10,6 +10,11 @@ Two entities per configured zone:
   ( ``[{"startsAt": ..., "total": ...}, ...]`` plus ``knownUntil`` ) so that
   package's templates (afname/injectie/cheap-now) can be repointed at this
   sensor by only changing the entity_id.
+
+Plus, on whichever zone is the default (see default.py), two stable
+entities that follow the default zone:
+``sensor.grid_clock_default_current_price`` and
+``sensor.grid_clock_default_prices``.
 """
 
 from __future__ import annotations
@@ -26,6 +31,7 @@ from homeassistant.util import dt as dt_util
 
 from .const import CONF_ZONE, DOMAIN, PRICE_UNIT, ZONES
 from .coordinator import GridClockCoordinator, GridClockData
+from .default import async_apply_default, register_default_platform
 
 
 def _zone_name(zone: str, language: str) -> str:
@@ -56,6 +62,17 @@ async def async_setup_entry(
             GridClockPricesSensor(coordinator, entry, zone, device_info),
         ]
     )
+
+    register_default_platform(
+        hass,
+        entry.entry_id,
+        async_add_entities,
+        lambda: [
+            GridClockDefaultCurrentPriceSensor(coordinator, zone, zone_name),
+            GridClockDefaultPricesSensor(coordinator, zone, zone_name),
+        ],
+    )
+    await async_apply_default(hass)
 
 
 class _GridClockEntity(CoordinatorEntity[GridClockCoordinator]):
@@ -138,3 +155,38 @@ class GridClockPricesSensor(_GridClockEntity, SensorEntity):
                 for point in data.prices
             ],
         }
+
+
+class _GridClockDefaultMixin:
+    """Stable, zone-independent identity for the default-zone entities.
+
+    No device (they move between zones) and a unique_id that isn't tied to a
+    config entry, so the entity_id survives switching the default zone.
+    """
+
+    _attr_has_entity_name = False
+
+    def __init__(
+        self, coordinator: GridClockCoordinator, zone: str, zone_name: str
+    ) -> None:
+        CoordinatorEntity.__init__(self, coordinator)
+        self._zone = zone
+        self._zone_name = zone_name
+        self._attr_unique_id = f"{DOMAIN}_default_{self._id_suffix}"
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        attrs = super().extra_state_attributes  # type: ignore[misc]
+        return {**attrs, "zone": self._zone, "zone_name": self._zone_name}
+
+
+class GridClockDefaultCurrentPriceSensor(_GridClockDefaultMixin, GridClockCurrentPriceSensor):
+    """Current price of the default zone -> sensor.grid_clock_default_current_price."""
+
+    _attr_name = "Grid Clock default current price"
+
+
+class GridClockDefaultPricesSensor(_GridClockDefaultMixin, GridClockPricesSensor):
+    """All prices of the default zone -> sensor.grid_clock_default_prices."""
+
+    _attr_name = "Grid Clock default prices"

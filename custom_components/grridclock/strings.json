@@ -6,10 +6,12 @@
         "description": "Connect to cdn.gridclock.eu for day-ahead electricity prices.",
         "data": {
           "zone": "Bidding zone",
-          "api_key": "Bearer API key (optional)"
+          "api_key": "Bearer API key (optional)",
+          "is_default": "Use as default zone"
         },
         "data_description": {
-          "api_key": "Sent as an Authorization: Bearer header. Leave empty if you don't have one yet - the public CDN doesn't require it today."
+          "api_key": "Sent as an Authorization: Bearer header. Leave empty if you don't have one yet - the public CDN doesn't require it today.",
+          "is_default": "The default zone also feeds sensor.grid_clock_default_current_price and sensor.grid_clock_default_prices."
         }
       }
     },
@@ -25,9 +27,14 @@
   "options": {
     "step": {
       "init": {
-        "title": "Grid Clock bearer key",
+        "title": "Grid Clock options",
         "data": {
-          "api_key": "Bearer API key (optional)"
+          "api_key": "Bearer API key (optional)",
+          "is_default": "Use as default zone"
+        },
+        "data_description": {
+          "api_key": "Sent as an Authorization: Bearer header. Leave empty if you don't have one yet - the public CDN doesn't require it today.",
+          "is_default": "Only one zone can be the default. It also feeds sensor.grid_clock_default_current_price and sensor.grid_clock_default_prices, so automations keep working when you switch. To change the default, tick this box on the zone you want. Without a choice the first added zone is the default."
         }
       }
     },

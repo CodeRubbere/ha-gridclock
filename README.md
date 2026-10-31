@@ -21,6 +21,12 @@ A custom [Home Assistant](https://www.home-assistant.io/) integration for
   - **Prices** (`sensor.grid_clock_<zone>_prices`) — state is the number of
     known intervals; attributes are `prices`
     (`[{"startsAt": ..., "total": ...}, ...]`) and `knownUntil`.
+- **Default zone** (when 2+ zones are configured): two extra, stable
+  sensors that follow whichever zone is the default —
+  `sensor.grid_clock_default_current_price` and
+  `sensor.grid_clock_default_prices` (same state/attributes as the per-zone
+  sensors, plus `zone` / `zone_name`). Point automations at these and you
+  can switch countries without editing them.
 - Ships its own brand icon/logo (`custom_components/gridclock/brand/`),
   picked up automatically by HA's Brands Proxy API (HA 2026.3+) for the
   integration tile in Settings → Devices & Services.
@@ -46,6 +52,12 @@ A custom [Home Assistant](https://www.home-assistant.io/) integration for
 Pick your bidding zone (e.g. Netherlands) and optionally fill in a bearer
 API key. The key can be changed later via the integration's options (gear
 icon) without removing and re-adding the integration.
+
+With more than one zone configured, the options (gear icon) of each zone
+show a **Use as default zone** checkbox (also offered when adding a further
+zone). Only one zone can be the default: ticking it on one zone clears it on
+the others. Without an explicit choice the first added zone is the default;
+if the default zone is removed, the next zone takes over.
 
 ## Migrating from an EPEX-based setup
 

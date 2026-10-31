@@ -35,6 +35,20 @@ Per geconfigureerde zone, gegroepeerd onder één apparaat ("Grid Clock NL"):
   kwartieren; attributen `prices` ( `[{"startsAt": ..., "total": ...}, ...]`,
   net als `sensor.epex_prices` uit `epex_live_sensors.yaml`) en `knownUntil`.
 
+### Standaardzone
+
+Heb je meer dan één zone toegevoegd, dan staat in de opties (tandwiel) van
+elke zone het vinkje **Gebruik als standaardzone** (ook bij het toevoegen van
+een extra zone). Er is altijd precies één standaardzone; zonder keuze is dat
+de eerst toegevoegde. De standaardzone krijgt twee extra, vaste entiteiten:
+
+- `sensor.grid_clock_default_current_price`
+- `sensor.grid_clock_default_prices`
+
+Die volgen automatisch de gekozen standaardzone (attributen `zone` en
+`zone_name` laten zien welke), dus automatiseringen die hierop wijzen hoeven
+niet aangepast te worden als je van land wisselt.
+
 ## Migreren van de EPEX/EVI-opstelling
 
 `home assistant/packages/epex_live_sensors.yaml` en `epex_live_helpers.yaml`
@@ -58,7 +72,9 @@ data leveren.
 - `coordinator.py` — haalt en parseert `v1/prices/{zone}/latest.json`.
 - `config_flow.py` — UI-setup (zone-keuze + bearer-sleutel), met een
   live testcall zodat een foute sleutel of onbereikbare CDN meteen zichtbaar is.
-- `sensor.py` — de twee entiteiten hierboven.
+- `sensor.py` — de entiteiten hierboven.
+- `default.py` — welke zone de standaard is en het verplaatsen van de
+  `grid_clock_default_*`-entiteiten bij wisselen (zonder herladen).
 - `brand/` — `icon.png`/`icon@2x.png`/`logo.png`/`logo@2x.png`: het
   Grid Clock-logo voor de integratietegel in Instellingen → Apparaten en
   diensten. Sinds HA 2026.3 pikt Home Assistant deze lokale map automatisch
